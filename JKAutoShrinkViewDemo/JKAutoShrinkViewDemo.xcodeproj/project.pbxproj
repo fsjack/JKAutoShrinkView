@@ -1,0 +1,516 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8C5363631883D7FB004663E7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5363621883D7FB004663E7 /* Foundation.framework */; };
+		8C5363651883D7FC004663E7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5363641883D7FB004663E7 /* CoreGraphics.framework */; };
+		8C5363671883D7FC004663E7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5363661883D7FC004663E7 /* UIKit.framework */; };
+		8C53636D1883D7FC004663E7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C53636B1883D7FC004663E7 /* InfoPlist.strings */; };
+		8C53636F1883D7FC004663E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53636E1883D7FC004663E7 /* main.m */; };
+		8C5363731883D7FC004663E7 /* JKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5363721883D7FC004663E7 /* JKAppDelegate.m */; };
+		8C5363751883D7FC004663E7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C5363741883D7FC004663E7 /* Images.xcassets */; };
+		8C53637C1883D7FC004663E7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C53637B1883D7FC004663E7 /* XCTest.framework */; };
+		8C53637D1883D7FC004663E7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5363621883D7FB004663E7 /* Foundation.framework */; };
+		8C53637E1883D7FC004663E7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5363661883D7FC004663E7 /* UIKit.framework */; };
+		8C5363861883D7FC004663E7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C5363841883D7FC004663E7 /* InfoPlist.strings */; };
+		8C5363881883D7FC004663E7 /* JKAutoShrinkViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5363871883D7FC004663E7 /* JKAutoShrinkViewDemoTests.m */; };
+		8C5363981883D81E004663E7 /* JKAutoShrinkNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5363931883D81E004663E7 /* JKAutoShrinkNavigationBar.m */; };
+		8C5363991883D81E004663E7 /* JKAutoShrinkToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5363951883D81E004663E7 /* JKAutoShrinkToolbar.m */; };
+		8C53639F1883D946004663E7 /* JKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53639D1883D946004663E7 /* JKViewController.m */; };
+		8C5363A01883D946004663E7 /* JKViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C53639E1883D946004663E7 /* JKViewController.xib */; };
+		8C58D23F188797F1002FEA29 /* UINavigationController+JKAutoShrinkSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C58D23E188797F1002FEA29 /* UINavigationController+JKAutoShrinkSupport.m */; };
+		8C58D24218879F06002FEA29 /* JKAutoShirnkInteractiveTransiting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C58D24118879F06002FEA29 /* JKAutoShirnkInteractiveTransiting.m */; };
+		8CA552EB18868503002B8F5A /* JKMultiDelegateForwarder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA552EA18868503002B8F5A /* JKMultiDelegateForwarder.m */; };
+		8CA552EE188685AE002B8F5A /* UIScrollView+JKMultiDelegatesSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA552ED188685AE002B8F5A /* UIScrollView+JKMultiDelegatesSupport.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8C53637F1883D7FC004663E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8C5363571883D7FB004663E7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8C53635E1883D7FB004663E7;
+			remoteInfo = JKAutoShrinkViewDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8C53635F1883D7FB004663E7 /* JKAutoShrinkViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JKAutoShrinkViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C5363621883D7FB004663E7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8C5363641883D7FB004663E7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		8C5363661883D7FC004663E7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		8C53636A1883D7FC004663E7 /* JKAutoShrinkViewDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JKAutoShrinkViewDemo-Info.plist"; sourceTree = "<group>"; };
+		8C53636C1883D7FC004663E7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8C53636E1883D7FC004663E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8C5363701883D7FC004663E7 /* JKAutoShrinkViewDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JKAutoShrinkViewDemo-Prefix.pch"; sourceTree = "<group>"; };
+		8C5363711883D7FC004663E7 /* JKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JKAppDelegate.h; sourceTree = "<group>"; };
+		8C5363721883D7FC004663E7 /* JKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JKAppDelegate.m; sourceTree = "<group>"; };
+		8C5363741883D7FC004663E7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8C53637A1883D7FC004663E7 /* JKAutoShrinkViewDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JKAutoShrinkViewDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C53637B1883D7FC004663E7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		8C5363831883D7FC004663E7 /* JKAutoShrinkViewDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JKAutoShrinkViewDemoTests-Info.plist"; sourceTree = "<group>"; };
+		8C5363851883D7FC004663E7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8C5363871883D7FC004663E7 /* JKAutoShrinkViewDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JKAutoShrinkViewDemoTests.m; sourceTree = "<group>"; };
+		8C5363921883D81E004663E7 /* JKAutoShrinkNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKAutoShrinkNavigationBar.h; sourceTree = "<group>"; };
+		8C5363931883D81E004663E7 /* JKAutoShrinkNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKAutoShrinkNavigationBar.m; sourceTree = "<group>"; };
+		8C5363941883D81E004663E7 /* JKAutoShrinkToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKAutoShrinkToolbar.h; sourceTree = "<group>"; };
+		8C5363951883D81E004663E7 /* JKAutoShrinkToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKAutoShrinkToolbar.m; sourceTree = "<group>"; };
+		8C53639B1883D88E004663E7 /* JKAutoShrinkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKAutoShrinkView.h; sourceTree = "<group>"; };
+		8C53639C1883D946004663E7 /* JKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKViewController.h; sourceTree = "<group>"; };
+		8C53639D1883D946004663E7 /* JKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKViewController.m; sourceTree = "<group>"; };
+		8C53639E1883D946004663E7 /* JKViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JKViewController.xib; sourceTree = "<group>"; };
+		8C58D23D188797F1002FEA29 /* UINavigationController+JKAutoShrinkSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+JKAutoShrinkSupport.h"; sourceTree = "<group>"; };
+		8C58D23E188797F1002FEA29 /* UINavigationController+JKAutoShrinkSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+JKAutoShrinkSupport.m"; sourceTree = "<group>"; };
+		8C58D24018879F06002FEA29 /* JKAutoShirnkInteractiveTransiting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKAutoShirnkInteractiveTransiting.h; sourceTree = "<group>"; };
+		8C58D24118879F06002FEA29 /* JKAutoShirnkInteractiveTransiting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKAutoShirnkInteractiveTransiting.m; sourceTree = "<group>"; };
+		8CA552E918868503002B8F5A /* JKMultiDelegateForwarder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKMultiDelegateForwarder.h; sourceTree = "<group>"; };
+		8CA552EA18868503002B8F5A /* JKMultiDelegateForwarder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKMultiDelegateForwarder.m; sourceTree = "<group>"; };
+		8CA552EC188685AE002B8F5A /* UIScrollView+JKMultiDelegatesSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+JKMultiDelegatesSupport.h"; sourceTree = "<group>"; };
+		8CA552ED188685AE002B8F5A /* UIScrollView+JKMultiDelegatesSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+JKMultiDelegatesSupport.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8C53635C1883D7FB004663E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C5363651883D7FC004663E7 /* CoreGraphics.framework in Frameworks */,
+				8C5363671883D7FC004663E7 /* UIKit.framework in Frameworks */,
+				8C5363631883D7FB004663E7 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C5363771883D7FC004663E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C53637C1883D7FC004663E7 /* XCTest.framework in Frameworks */,
+				8C53637E1883D7FC004663E7 /* UIKit.framework in Frameworks */,
+				8C53637D1883D7FC004663E7 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8C5363561883D7FB004663E7 = {
+			isa = PBXGroup;
+			children = (
+				8C5363681883D7FC004663E7 /* JKAutoShrinkViewDemo */,
+				8C5363811883D7FC004663E7 /* JKAutoShrinkViewDemoTests */,
+				8C5363611883D7FB004663E7 /* Frameworks */,
+				8C5363601883D7FB004663E7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8C5363601883D7FB004663E7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8C53635F1883D7FB004663E7 /* JKAutoShrinkViewDemo.app */,
+				8C53637A1883D7FC004663E7 /* JKAutoShrinkViewDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8C5363611883D7FB004663E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8C5363621883D7FB004663E7 /* Foundation.framework */,
+				8C5363641883D7FB004663E7 /* CoreGraphics.framework */,
+				8C5363661883D7FC004663E7 /* UIKit.framework */,
+				8C53637B1883D7FC004663E7 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8C5363681883D7FC004663E7 /* JKAutoShrinkViewDemo */ = {
+			isa = PBXGroup;
+			children = (
+				8C5363911883D81E004663E7 /* JKAutoShrinkView */,
+				8C5363711883D7FC004663E7 /* JKAppDelegate.h */,
+				8C5363721883D7FC004663E7 /* JKAppDelegate.m */,
+				8C53639C1883D946004663E7 /* JKViewController.h */,
+				8C53639D1883D946004663E7 /* JKViewController.m */,
+				8C53639E1883D946004663E7 /* JKViewController.xib */,
+				8C5363741883D7FC004663E7 /* Images.xcassets */,
+				8C5363691883D7FC004663E7 /* Supporting Files */,
+			);
+			path = JKAutoShrinkViewDemo;
+			sourceTree = "<group>";
+		};
+		8C5363691883D7FC004663E7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8C53636A1883D7FC004663E7 /* JKAutoShrinkViewDemo-Info.plist */,
+				8C53636B1883D7FC004663E7 /* InfoPlist.strings */,
+				8C53636E1883D7FC004663E7 /* main.m */,
+				8C5363701883D7FC004663E7 /* JKAutoShrinkViewDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8C5363811883D7FC004663E7 /* JKAutoShrinkViewDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				8C5363871883D7FC004663E7 /* JKAutoShrinkViewDemoTests.m */,
+				8C5363821883D7FC004663E7 /* Supporting Files */,
+			);
+			path = JKAutoShrinkViewDemoTests;
+			sourceTree = "<group>";
+		};
+		8C5363821883D7FC004663E7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8C5363831883D7FC004663E7 /* JKAutoShrinkViewDemoTests-Info.plist */,
+				8C5363841883D7FC004663E7 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8C5363911883D81E004663E7 /* JKAutoShrinkView */ = {
+			isa = PBXGroup;
+			children = (
+				8C53639B1883D88E004663E7 /* JKAutoShrinkView.h */,
+				8C5363921883D81E004663E7 /* JKAutoShrinkNavigationBar.h */,
+				8C5363931883D81E004663E7 /* JKAutoShrinkNavigationBar.m */,
+				8C5363941883D81E004663E7 /* JKAutoShrinkToolbar.h */,
+				8C5363951883D81E004663E7 /* JKAutoShrinkToolbar.m */,
+				8CA552E918868503002B8F5A /* JKMultiDelegateForwarder.h */,
+				8CA552EA18868503002B8F5A /* JKMultiDelegateForwarder.m */,
+				8C58D24018879F06002FEA29 /* JKAutoShirnkInteractiveTransiting.h */,
+				8C58D24118879F06002FEA29 /* JKAutoShirnkInteractiveTransiting.m */,
+				8CA552EC188685AE002B8F5A /* UIScrollView+JKMultiDelegatesSupport.h */,
+				8CA552ED188685AE002B8F5A /* UIScrollView+JKMultiDelegatesSupport.m */,
+				8C58D23D188797F1002FEA29 /* UINavigationController+JKAutoShrinkSupport.h */,
+				8C58D23E188797F1002FEA29 /* UINavigationController+JKAutoShrinkSupport.m */,
+			);
+			name = JKAutoShrinkView;
+			path = ../../JKAutoShrinkView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8C53635E1883D7FB004663E7 /* JKAutoShrinkViewDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C53638B1883D7FC004663E7 /* Build configuration list for PBXNativeTarget "JKAutoShrinkViewDemo" */;
+			buildPhases = (
+				8C53635B1883D7FB004663E7 /* Sources */,
+				8C53635C1883D7FB004663E7 /* Frameworks */,
+				8C53635D1883D7FB004663E7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JKAutoShrinkViewDemo;
+			productName = JKAutoShrinkViewDemo;
+			productReference = 8C53635F1883D7FB004663E7 /* JKAutoShrinkViewDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8C5363791883D7FC004663E7 /* JKAutoShrinkViewDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C53638E1883D7FC004663E7 /* Build configuration list for PBXNativeTarget "JKAutoShrinkViewDemoTests" */;
+			buildPhases = (
+				8C5363761883D7FC004663E7 /* Sources */,
+				8C5363771883D7FC004663E7 /* Frameworks */,
+				8C5363781883D7FC004663E7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8C5363801883D7FC004663E7 /* PBXTargetDependency */,
+			);
+			name = JKAutoShrinkViewDemoTests;
+			productName = JKAutoShrinkViewDemoTests;
+			productReference = 8C53637A1883D7FC004663E7 /* JKAutoShrinkViewDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8C5363571883D7FB004663E7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = JK;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = Jackie;
+				TargetAttributes = {
+					8C5363791883D7FC004663E7 = {
+						TestTargetID = 8C53635E1883D7FB004663E7;
+					};
+				};
+			};
+			buildConfigurationList = 8C53635A1883D7FB004663E7 /* Build configuration list for PBXProject "JKAutoShrinkViewDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 8C5363561883D7FB004663E7;
+			productRefGroup = 8C5363601883D7FB004663E7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8C53635E1883D7FB004663E7 /* JKAutoShrinkViewDemo */,
+				8C5363791883D7FC004663E7 /* JKAutoShrinkViewDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8C53635D1883D7FB004663E7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C53636D1883D7FC004663E7 /* InfoPlist.strings in Resources */,
+				8C5363751883D7FC004663E7 /* Images.xcassets in Resources */,
+				8C5363A01883D946004663E7 /* JKViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C5363781883D7FC004663E7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C5363861883D7FC004663E7 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8C53635B1883D7FB004663E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CA552EB18868503002B8F5A /* JKMultiDelegateForwarder.m in Sources */,
+				8C5363991883D81E004663E7 /* JKAutoShrinkToolbar.m in Sources */,
+				8C53639F1883D946004663E7 /* JKViewController.m in Sources */,
+				8C58D24218879F06002FEA29 /* JKAutoShirnkInteractiveTransiting.m in Sources */,
+				8C53636F1883D7FC004663E7 /* main.m in Sources */,
+				8C5363981883D81E004663E7 /* JKAutoShrinkNavigationBar.m in Sources */,
+				8C58D23F188797F1002FEA29 /* UINavigationController+JKAutoShrinkSupport.m in Sources */,
+				8C5363731883D7FC004663E7 /* JKAppDelegate.m in Sources */,
+				8CA552EE188685AE002B8F5A /* UIScrollView+JKMultiDelegatesSupport.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C5363761883D7FC004663E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C5363881883D7FC004663E7 /* JKAutoShrinkViewDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8C5363801883D7FC004663E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8C53635E1883D7FB004663E7 /* JKAutoShrinkViewDemo */;
+			targetProxy = 8C53637F1883D7FC004663E7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8C53636B1883D7FC004663E7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C53636C1883D7FC004663E7 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		8C5363841883D7FC004663E7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C5363851883D7FC004663E7 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8C5363891883D7FC004663E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		8C53638A1883D7FC004663E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8C53638C1883D7FC004663E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JKAutoShrinkViewDemo/JKAutoShrinkViewDemo-Prefix.pch";
+				INFOPLIST_FILE = "JKAutoShrinkViewDemo/JKAutoShrinkViewDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		8C53638D1883D7FC004663E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JKAutoShrinkViewDemo/JKAutoShrinkViewDemo-Prefix.pch";
+				INFOPLIST_FILE = "JKAutoShrinkViewDemo/JKAutoShrinkViewDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		8C53638F1883D7FC004663E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JKAutoShrinkViewDemo.app/JKAutoShrinkViewDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JKAutoShrinkViewDemo/JKAutoShrinkViewDemo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "JKAutoShrinkViewDemoTests/JKAutoShrinkViewDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		8C5363901883D7FC004663E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JKAutoShrinkViewDemo.app/JKAutoShrinkViewDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JKAutoShrinkViewDemo/JKAutoShrinkViewDemo-Prefix.pch";
+				INFOPLIST_FILE = "JKAutoShrinkViewDemoTests/JKAutoShrinkViewDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8C53635A1883D7FB004663E7 /* Build configuration list for PBXProject "JKAutoShrinkViewDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C5363891883D7FC004663E7 /* Debug */,
+				8C53638A1883D7FC004663E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C53638B1883D7FC004663E7 /* Build configuration list for PBXNativeTarget "JKAutoShrinkViewDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C53638C1883D7FC004663E7 /* Debug */,
+				8C53638D1883D7FC004663E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C53638E1883D7FC004663E7 /* Build configuration list for PBXNativeTarget "JKAutoShrinkViewDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C53638F1883D7FC004663E7 /* Debug */,
+				8C5363901883D7FC004663E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8C5363571883D7FB004663E7 /* Project object */;
+}
