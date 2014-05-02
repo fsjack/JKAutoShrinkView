@@ -150,6 +150,9 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
 }
 
 - (void)shrinkToolbarBarWithRatio:(CGFloat)ratio{
+    if (ratio > 0 && [self.navigationController isToolbarHidden]) {
+        [self.navigationController setToolbarHidden:NO];
+    }
     
     UIToolbar<JKAutoShirnkInteractiveTransitingDelegate> *toolbar = self.toolbar;
     if([toolbar respondsToSelector:@selector(autoShirnkInteractiveTransiting:willShrinkViewWithPercent:)]){
@@ -167,8 +170,17 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
     };
     [toolbar layoutIfNeeded];
     
+    self.scrollView.contentInset = (UIEdgeInsets){
+        self.scrollView.contentInset.top , self.scrollView.contentInset.left,
+        (toolbarHeight * ratio) , self.scrollView.contentInset.right
+    };
+    
     if([toolbar respondsToSelector:@selector(autoShirnkInteractiveTransiting:didShrinkViewWithPercent:)]){
         [toolbar autoShirnkInteractiveTransiting:self didShrinkViewWithPercent:ratio];
+    }
+    
+    if (ratio == 0) {
+        [self.navigationController setToolbarHidden:YES];
     }
 }
 
