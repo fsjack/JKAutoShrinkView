@@ -78,7 +78,8 @@ static NSString * JKAutoShrinkSupportAutoShirnkInteractiveTransitingAssociationK
     }
     
     if(autoNavigationBarShirnkEnabled){
-        [self.multiDelegateProxy_JK addForwardingDelegate:self.delegate];
+        if ([self multiDelegateProxy_JK] == nil)
+            [self.multiDelegateProxy_JK addForwardingDelegate:self.delegate];
         [self.multiDelegateProxy_JK addForwardingDelegate:self.autoShirnkInteractiveTransiting_JK];
         
         [self setDelegate_JKMultiDelegatesSupport:nil];

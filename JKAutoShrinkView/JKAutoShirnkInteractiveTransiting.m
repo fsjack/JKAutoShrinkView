@@ -275,7 +275,8 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
 }
 
 #pragma mark - UINavigationControllerDelegate
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
+{
     [self.scrollView removeMultiDelegateByDelegateForwarder:self];
     UIScrollView *scrollView = [self traverseSubviewsToGetViewOfClass:[UIScrollView class] inView:viewController.view];
     [scrollView addMultiDelegateByDelegateForwarder:self];
@@ -283,6 +284,5 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
     
     self.shrinkingContentOffsetY = 0.0f;
 }
-
 
 @end
