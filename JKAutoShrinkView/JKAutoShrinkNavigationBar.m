@@ -37,6 +37,48 @@ static CGFloat const _JKAutoShrinkNavigationItemiewFadeAnimationDuration = 0.3;
         return self.defaultTitleView;;
 }
 
+- (void) setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    
+    if ([self.subviews count] > 0) {
+        UIView *view = [self subviews][0];
+        CGRect viewFrame = [view frame];
+        if (viewFrame.size.height < frame.size.height + 20.0) {
+            viewFrame.origin.y = -20.0;
+            viewFrame.size.height = 20.0 + frame.size.height;
+        }
+        [view setFrame:viewFrame];
+    }
+}
+
+- (void) setCenter:(CGPoint)center
+{
+    if (center.y < 42) {
+        center.y = 42;
+    }
+    [super setCenter:center];
+    
+    if ([self.subviews count] > 0) {
+        UIView *view = [self subviews][0];
+        CGRect frame = [view frame];
+        if (frame.size.height < 64.0)
+            frame.size.height = 64.0;
+        [view setFrame:frame];
+    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if ([self.subviews count] > 0) {
+            UIView *view = [self subviews][0];
+            CGRect frame = [view frame];
+            if (frame.size.height < 64.0) {
+                frame.origin.y = -20.0;
+                frame.size.height = 64.0;
+            }
+            [view setFrame:frame];
+        }
+    });
+}
+
 - (NSArray *)leftBarButtonViews{
     UINavigationItem *topNavigationitem = self.items.lastObject;
     NSArray *leftBarButtonitems = topNavigationitem.leftBarButtonItems;
@@ -118,7 +160,16 @@ static CGFloat const _JKAutoShrinkNavigationItemiewFadeAnimationDuration = 0.3;
 }
 
 - (void)layoutSubviews{
-    if(!self.isShrinking) [super layoutSubviews];
+    if(!self.isShrinking)
+        [super layoutSubviews];
+    else {
+        CGRect frame = [self frame];
+        frame.origin.x = 10.0;
+        frame.origin.y = 0.0;
+        frame.size.width = frame.size.width - 20.0;
+        frame.size.height = 44.0;
+        [self.internalTitleView setFrame:frame];
+    }
 }
 
 @end
