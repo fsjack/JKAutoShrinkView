@@ -25,6 +25,7 @@ static void class_swizzleSelector(Class class, SEL originalSelector, SEL newSele
 
 static NSString * JKMultiDelegatesSupportDelegateProxyAssociationKey;
 static NSString * JKAutoShrinkSupportAutoNavigationBarShirnkEnabledAssociationKey;
+static NSString * JKAutoShrinkSupportAutoToolbarShirnkEnabledAssociationKey;
 static NSString * JKAutoShrinkSupportAutoShirnkInteractiveTransitingAssociationKey;
 
 @implementation UINavigationController (JKAutoShrinkSupport)
@@ -77,21 +78,48 @@ static NSString * JKAutoShrinkSupportAutoShirnkInteractiveTransitingAssociationK
         return;
     }
     
-    if(autoNavigationBarShirnkEnabled){
-        if ([self multiDelegateProxy_JK] == nil)
-            [self.multiDelegateProxy_JK addForwardingDelegate:self.delegate];
-        [self.multiDelegateProxy_JK addForwardingDelegate:self.autoShirnkInteractiveTransiting_JK];
-        
-        [self setDelegate_JKMultiDelegatesSupport:nil];
-        [self setDelegate_JKMultiDelegatesSupport:(id<UINavigationControllerDelegate>)self.multiDelegateProxy_JK];
-    }else{
-        [self.multiDelegateProxy_JK removeForwardingDelegate:self.autoShirnkInteractiveTransiting_JK];
+    if(autoNavigationBarShirnkEnabled && !self.autoToolbarShirnkEnabled){
+        [self _setDelegateProxy];
+    }else if (!autoNavigationBarShirnkEnabled && !self.autoToolbarShirnkEnabled){
+        [self _removeDelegateProxy];
     }
     objc_setAssociatedObject(self, &JKAutoShrinkSupportAutoNavigationBarShirnkEnabledAssociationKey, @(autoNavigationBarShirnkEnabled), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (BOOL)autoNavigationBarShirnkEnabled{
     return [objc_getAssociatedObject(self, &JKAutoShrinkSupportAutoNavigationBarShirnkEnabledAssociationKey) boolValue];
+}
+
+- (void)setAutoToolbarShirnkEnabled:(BOOL)autoToolbarShirnkEnabled{
+    
+    if(![self.navigationBar conformsToProtocol:@protocol(JKAutoShirnkInteractiveTransitingDelegate)]){
+        [NSException raise:NSInvalidArgumentException format:@"UINavigationController need to be init with method 'initWithNavigationBarClass:toolbarClass:' and pass a navigationBar that conform to JKAutoShirnkInteractiveTransitingDelegate protocol as argument."];
+        return;
+    }
+    
+    if(autoToolbarShirnkEnabled && !self.autoNavigationBarShirnkEnabled){
+        [self _setDelegateProxy];
+    }else if (!autoToolbarShirnkEnabled && !self.autoNavigationBarShirnkEnabled){
+        [self _removeDelegateProxy];
+    }
+    objc_setAssociatedObject(self, &JKAutoShrinkSupportAutoToolbarShirnkEnabledAssociationKey, @(autoToolbarShirnkEnabled), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)autoToolbarShirnkEnabled{
+    return [objc_getAssociatedObject(self, &JKAutoShrinkSupportAutoToolbarShirnkEnabledAssociationKey) boolValue];
+}
+
+- (void)_setDelegateProxy{
+    if ([self multiDelegateProxy_JK] == nil)
+        [self.multiDelegateProxy_JK addForwardingDelegate:self.delegate];
+    [self.multiDelegateProxy_JK addForwardingDelegate:self.autoShirnkInteractiveTransiting_JK];
+    
+    [self setDelegate_JKMultiDelegatesSupport:nil];
+    [self setDelegate_JKMultiDelegatesSupport:(id<UINavigationControllerDelegate>)self.multiDelegateProxy_JK];
+}
+
+- (void)_removeDelegateProxy{
+    [self.multiDelegateProxy_JK removeForwardingDelegate:self.autoShirnkInteractiveTransiting_JK];
 }
 
 @end

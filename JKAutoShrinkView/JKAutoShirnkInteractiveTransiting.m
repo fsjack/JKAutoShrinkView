@@ -7,6 +7,7 @@
 //
 
 #import "JKAutoShirnkInteractiveTransiting.h"
+#import "UINavigationController+JKAutoShrinkSupport.h"
 #import "UIScrollView+JKMultiDelegatesSupport.h"
 
 static CGFloat const _JKAutoShrinkAnimationDuration = 0.12f;
@@ -33,8 +34,10 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
 @property (nonatomic) CGFloat shrinkingContentOffsetY; /* shrinkingContentOffsetY is where navigation bar should do shrinking transform. */
 
 @property (nonatomic, readonly) JKAutoShrinkNavigationBarState navigationBarState;
+@property (nonatomic, readonly) JKAutoShrinkNavigationBarState toolbarState;
 
 @property (nonatomic, readonly) BOOL shouldNavigationBarAutoShrink;
+@property (nonatomic, readonly) BOOL shouldToolbarAutoShrink;
 
 @property (nonatomic, weak) CADisplayLink *displayLink;
 @property (nonatomic) CGFloat animationProgress;
@@ -59,6 +62,8 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
 
 #pragma mark - Property
 - (BOOL)shouldNavigationBarAutoShrink{
+    if (![self.navigationController autoNavigationBarShirnkEnabled])
+        return NO;
     
     CGFloat topLayoutGuideLength = [self.navigationController.topViewController.topLayoutGuide length];
     CGFloat statusBarHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
@@ -73,6 +78,10 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
     return (isScrollViewContentSizeLargeEnough && IsScrollViewAutomaticallyAdjustInset && !isNavigationBarHidden && !isNavigationBarTooShort);
 }
 
+- (BOOL) shouldToolbarAutoShrink {
+    return [self.navigationController autoToolbarShirnkEnabled];
+}
+
 - (JKAutoShrinkNavigationBarState)navigationBarState{
     
     CGFloat topLayoutGuideLength = [self.navigationController.topViewController.topLayoutGuide length];
@@ -81,6 +90,13 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
     
     JKAutoShrinkNavigationBarState navigationBarState = (navigationBarHeight == CGRectGetHeight(self.navigationBar.bounds)) ? JKAutoShrinkNavigationBarStateNormal : JKAutoShrinkNavigationBarStateShrinked;
     return navigationBarState;
+}
+
+- (JKAutoShrinkNavigationBarState)toolBarState{
+    if ([self.toolbar isHidden])
+        return JKAutoShrinkNavigationBarStateShrinked;
+    else
+        return JKAutoShrinkNavigationBarStateNormal;
 }
 
 - (UINavigationBar<JKAutoShirnkInteractiveTransitingDelegate> *)navigationBar{
@@ -120,6 +136,8 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
 }
 
 - (void)shrinkNavigationBarWithRatio:(CGFloat)ratio{
+    if (![self.navigationController autoNavigationBarShirnkEnabled])
+        return;
     CGFloat topLayoutGuideLength = [self.navigationController.topViewController.topLayoutGuide length];
     CGFloat statusBarHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
     
@@ -150,6 +168,8 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
 }
 
 - (void)shrinkToolbarBarWithRatio:(CGFloat)ratio{
+    if (![self.navigationController autoToolbarShirnkEnabled])
+        return;
     if (ratio > 0 && [self.navigationController isToolbarHidden]) {
         [self.navigationController setToolbarHidden:NO];
     }
@@ -226,10 +246,11 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    //[self.navigationController.view dumpView];
+    BOOL shouldNavigationBarAutoShrink = [self shouldNavigationBarAutoShrink];
+    BOOL shouldToolbarAutoShrink = [self shouldToolbarAutoShrink];
     
     /* NavigationBar or Toolbar should do nothing if scrollView contentSize less than the screen size. */
-    if(!self.shouldNavigationBarAutoShrink)
+    if(!shouldNavigationBarAutoShrink && !shouldToolbarAutoShrink)
         return;
     [self.displayLink invalidate];
     
@@ -255,16 +276,19 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
     
     /* NavigationBar will stop shrink when content offset Y reach statusBar height. */
     ratio = (1.0f - realContentOffsetY / (navigationBarHeight - _JKAutoShrinkNavigationBarMinimumHeight));
-    [self shrinkNavigationBarWithRatio:ratio];
+    if (shouldNavigationBarAutoShrink)
+        [self shrinkNavigationBarWithRatio:ratio];
     
     /* Do Toolbar shrinking work. */
-    [self shrinkToolbarBarWithRatio:ratio];
+    if (shouldToolbarAutoShrink)
+        [self shrinkToolbarBarWithRatio:ratio];
 }
 
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
     /* NavigationBar or Toolbar should change shape even scrollView not on the top or bottom,But change shape as velocity reach some kinda speed. */
-    if(!self.shouldNavigationBarAutoShrink) return;
+    if(!self.shouldNavigationBarAutoShrink && !self.shouldToolbarAutoShrink)
+        return;
     
     JKAutoShrinkScrollViewDraggingDirection draggingDirection = JKAutoShrinkScrollViewDraggingDirectionOther;
     if(velocity.y > 0.0 )
