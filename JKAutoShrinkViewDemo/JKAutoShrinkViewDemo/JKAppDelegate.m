@@ -22,6 +22,7 @@
     UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:[JKAutoShrinkNavigationBar class] toolbarClass:[JKAutoShrinkToolbar class]];
     [navigationController setToolbarHidden:NO animated:NO];
     [navigationController setAutoNavigationBarShirnkEnabled:YES];
+    [navigationController setAutoToolbarShirnkEnabled:YES];
     
     JKViewController *viewController = [[JKViewController alloc] init];
     [navigationController pushViewController:viewController animated:NO];

@@ -10,4 +10,5 @@
 
 @interface UINavigationController (JKAutoShrinkSupport)
 @property (nonatomic) BOOL autoNavigationBarShirnkEnabled;
+@property (nonatomic) BOOL autoToolbarShirnkEnabled;
 @end

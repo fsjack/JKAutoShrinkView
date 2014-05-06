@@ -7,10 +7,11 @@
 //
 
 #import "JKAutoShirnkInteractiveTransiting.h"
+#import "UINavigationController+JKAutoShrinkSupport.h"
 #import "UIScrollView+JKMultiDelegatesSupport.h"
 
+static CGFloat const _JKAutoShrinkAnimationDuration = 0.12f;
 static CGFloat const _JKAutoShrinkNavigationBarMinimumHeight = 20.0f;
-static CGFloat const _JKAutoShrinkNavigationBarShrinkAnimationDuration = 0.12f;
 static CGFloat const _JKAutoShrinkScrollViewVelocityThreshold = 0.8f;
 
 typedef NS_ENUM(NSUInteger, JKAutoShrinkScrollViewDraggingDirection) {
@@ -33,8 +34,10 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
 @property (nonatomic) CGFloat shrinkingContentOffsetY; /* shrinkingContentOffsetY is where navigation bar should do shrinking transform. */
 
 @property (nonatomic, readonly) JKAutoShrinkNavigationBarState navigationBarState;
+@property (nonatomic, readonly) JKAutoShrinkNavigationBarState toolbarState;
 
 @property (nonatomic, readonly) BOOL shouldNavigationBarAutoShrink;
+@property (nonatomic, readonly) BOOL shouldToolbarAutoShrink;
 
 @property (nonatomic, weak) CADisplayLink *displayLink;
 @property (nonatomic) CGFloat animationProgress;
@@ -59,6 +62,8 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
 
 #pragma mark - Property
 - (BOOL)shouldNavigationBarAutoShrink{
+    if (![self.navigationController autoNavigationBarShirnkEnabled])
+        return NO;
     
     CGFloat topLayoutGuideLength = [self.navigationController.topViewController.topLayoutGuide length];
     CGFloat statusBarHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
@@ -73,6 +78,10 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
     return (isScrollViewContentSizeLargeEnough && IsScrollViewAutomaticallyAdjustInset && !isNavigationBarHidden && !isNavigationBarTooShort);
 }
 
+- (BOOL) shouldToolbarAutoShrink {
+    return [self.navigationController autoToolbarShirnkEnabled];
+}
+
 - (JKAutoShrinkNavigationBarState)navigationBarState{
     
     CGFloat topLayoutGuideLength = [self.navigationController.topViewController.topLayoutGuide length];
@@ -81,6 +90,13 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
     
     JKAutoShrinkNavigationBarState navigationBarState = (navigationBarHeight == CGRectGetHeight(self.navigationBar.bounds)) ? JKAutoShrinkNavigationBarStateNormal : JKAutoShrinkNavigationBarStateShrinked;
     return navigationBarState;
+}
+
+- (JKAutoShrinkNavigationBarState)toolBarState{
+    if ([self.toolbar isHidden])
+        return JKAutoShrinkNavigationBarStateShrinked;
+    else
+        return JKAutoShrinkNavigationBarStateNormal;
 }
 
 - (UINavigationBar<JKAutoShirnkInteractiveTransitingDelegate> *)navigationBar{
@@ -104,7 +120,8 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
 }
 
 - (void)setShrinkingContentOffsetY:(CGFloat)shrinkingContentOffsetY{
-    if(shrinkingContentOffsetY < 0.0f) shrinkingContentOffsetY = 0.0f;
+    if(shrinkingContentOffsetY < 0.0f)
+        shrinkingContentOffsetY = 0.0f;
     _shrinkingContentOffsetY = shrinkingContentOffsetY;
 }
 
@@ -119,12 +136,15 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
 }
 
 - (void)shrinkNavigationBarWithRatio:(CGFloat)ratio{
+    if (![self.navigationController autoNavigationBarShirnkEnabled])
+        return;
     CGFloat topLayoutGuideLength = [self.navigationController.topViewController.topLayoutGuide length];
     CGFloat statusBarHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
     
     CGFloat navigationBarMaximumHeight = (topLayoutGuideLength - statusBarHeight);
     CGFloat navigationBarCurrentHeight = (_JKAutoShrinkNavigationBarMinimumHeight + (navigationBarMaximumHeight - _JKAutoShrinkNavigationBarMinimumHeight) * ratio);
-    if(navigationBarCurrentHeight < _JKAutoShrinkNavigationBarMinimumHeight) navigationBarCurrentHeight = _JKAutoShrinkNavigationBarMinimumHeight;
+    if (navigationBarCurrentHeight < _JKAutoShrinkNavigationBarMinimumHeight)
+        navigationBarCurrentHeight = _JKAutoShrinkNavigationBarMinimumHeight;
     
     UINavigationBar<JKAutoShirnkInteractiveTransitingDelegate> *navigationBar = self.navigationBar;
     if([navigationBar respondsToSelector:@selector(autoShirnkInteractiveTransiting:willShrinkViewWithPercent:)]){
@@ -147,6 +167,43 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
     }
 }
 
+- (void)shrinkToolbarBarWithRatio:(CGFloat)ratio{
+    if (![self.navigationController autoToolbarShirnkEnabled])
+        return;
+    if (ratio > 0 && [self.navigationController isToolbarHidden]) {
+        [self.navigationController setToolbarHidden:NO];
+    }
+    
+    UIToolbar<JKAutoShirnkInteractiveTransitingDelegate> *toolbar = self.toolbar;
+    if([toolbar respondsToSelector:@selector(autoShirnkInteractiveTransiting:willShrinkViewWithPercent:)]){
+        [toolbar autoShirnkInteractiveTransiting:self willShrinkViewWithPercent:ratio];
+    }
+    CGFloat toolbarHeight = CGRectGetHeight(toolbar.frame);
+    CGFloat bottomLayoutGuideLength = CGRectGetMaxY(self.navigationController.topViewController.view.frame);
+    
+    CGFloat toolbarDefaultOffsetY = bottomLayoutGuideLength;
+    CGFloat toolbarCurrentOffsetY = (toolbarDefaultOffsetY - (toolbarHeight * ratio));
+
+    toolbar.frame = (CGRect){
+        { CGRectGetMinX(toolbar.frame) , toolbarCurrentOffsetY },
+        { CGRectGetWidth(toolbar.bounds) , toolbarHeight }
+    };
+    [toolbar layoutIfNeeded];
+    
+    self.scrollView.contentInset = (UIEdgeInsets){
+        self.scrollView.contentInset.top , self.scrollView.contentInset.left,
+        (toolbarHeight * ratio) , self.scrollView.contentInset.right
+    };
+    
+    if([toolbar respondsToSelector:@selector(autoShirnkInteractiveTransiting:didShrinkViewWithPercent:)]){
+        [toolbar autoShirnkInteractiveTransiting:self didShrinkViewWithPercent:ratio];
+    }
+    
+    if (ratio == 0) {
+        [self.navigationController setToolbarHidden:YES];
+    }
+}
+
 - (void)performShrinkingAnimation:(BOOL)isShrink{
     if(self.displayLink){
         [self.displayLink invalidate];
@@ -155,7 +212,7 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
     CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:isShrink ? @selector(updateShrinkingAnimationByFrame) : @selector(updateExpendingAnimationByFrame)];
     self.displayLink = displayLink;
     
-    self.animationDuration = _JKAutoShrinkNavigationBarShrinkAnimationDuration;
+    self.animationDuration = _JKAutoShrinkAnimationDuration;
     self.animationProgress = self.currentAnimationProgress;
     
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
@@ -171,6 +228,7 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
     }
     
     [self shrinkNavigationBarWithRatio:self.animationProgress];
+    [self shrinkToolbarBarWithRatio:self.animationProgress];
 }
 
 - (void)updateShrinkingAnimationByFrame{
@@ -183,48 +241,54 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
     }
     
     [self shrinkNavigationBarWithRatio:self.animationProgress];
+    [self shrinkToolbarBarWithRatio:self.animationProgress];
 }
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    BOOL shouldNavigationBarAutoShrink = [self shouldNavigationBarAutoShrink];
+    BOOL shouldToolbarAutoShrink = [self shouldToolbarAutoShrink];
+    
     /* NavigationBar or Toolbar should do nothing if scrollView contentSize less than the screen size. */
-    if(!self.shouldNavigationBarAutoShrink) return;
+    if(!shouldNavigationBarAutoShrink && !shouldToolbarAutoShrink)
+        return;
     [self.displayLink invalidate];
     
+    CGFloat ratio;
     CGFloat contentOffsetY = scrollView.contentOffset.y;
     CGFloat statusBarHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
     
     /* Do navigationBar shrinking work. */
-    {
-        contentOffsetY = contentOffsetY - self.shrinkingContentOffsetY;
-        /* ScrollView has Propably been automatically inset topLayoutGuideLength. */
-        CGFloat topLayoutGuideLength = [self.navigationController.topViewController.topLayoutGuide length];
-        CGFloat navigationBarHeight = (topLayoutGuideLength - statusBarHeight);
-        
-        CGFloat realContentOffsetY = contentOffsetY + (statusBarHeight + navigationBarHeight);
-        /*
-         If scrollView stick to the top of the screen.
-         Navigation will NOT automatically shrink if scrollView is not on the top of the screen by default.
-         */
-        if(realContentOffsetY < 0) realContentOffsetY = 0;
-        else if(realContentOffsetY > (navigationBarHeight - _JKAutoShrinkNavigationBarMinimumHeight) ) realContentOffsetY = (navigationBarHeight - _JKAutoShrinkNavigationBarMinimumHeight);
-        
-        /* NavigationBar will stop shrink when content offset Y reach statusBar height. */
-        CGFloat ratio = (1.0f - realContentOffsetY / (navigationBarHeight - _JKAutoShrinkNavigationBarMinimumHeight));
-        [self shrinkNavigationBarWithRatio:ratio];
-        
-    }
+    contentOffsetY = contentOffsetY - self.shrinkingContentOffsetY;
+    /* ScrollView has Propably been automatically inset topLayoutGuideLength. */
+    CGFloat topLayoutGuideLength = [self.navigationController.topViewController.topLayoutGuide length];
+    CGFloat navigationBarHeight = (topLayoutGuideLength - statusBarHeight);
     
-    /*!FIX Do Toolbar shrinking work. */
-    {
-        ;
-    }
+    CGFloat realContentOffsetY = contentOffsetY + (statusBarHeight + navigationBarHeight);
+    /*
+     If scrollView stick to the top of the screen.
+     Navigation will NOT automatically shrink if scrollView is not on the top of the screen by default.
+     */
+    if(realContentOffsetY < 0)
+        realContentOffsetY = 0;
+    else if(realContentOffsetY > (navigationBarHeight - _JKAutoShrinkNavigationBarMinimumHeight) )
+        realContentOffsetY = (navigationBarHeight - _JKAutoShrinkNavigationBarMinimumHeight);
+    
+    /* NavigationBar will stop shrink when content offset Y reach statusBar height. */
+    ratio = (1.0f - realContentOffsetY / (navigationBarHeight - _JKAutoShrinkNavigationBarMinimumHeight));
+    if (shouldNavigationBarAutoShrink)
+        [self shrinkNavigationBarWithRatio:ratio];
+    
+    /* Do Toolbar shrinking work. */
+    if (shouldToolbarAutoShrink)
+        [self shrinkToolbarBarWithRatio:ratio];
 }
 
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
     /* NavigationBar or Toolbar should change shape even scrollView not on the top or bottom,But change shape as velocity reach some kinda speed. */
-    if(!self.shouldNavigationBarAutoShrink) return;
+    if(!self.shouldNavigationBarAutoShrink && !self.shouldToolbarAutoShrink)
+        return;
     
     JKAutoShrinkScrollViewDraggingDirection draggingDirection = JKAutoShrinkScrollViewDraggingDirectionOther;
     if(velocity.y > 0.0 )
@@ -269,13 +333,21 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
             [self performShrinkingAnimation:NO];
         }else{
             [self performShrinkingAnimation:YES];
-            
         }
     }
 }
 
 #pragma mark - UINavigationControllerDelegate
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if (!self.scrollView) {
+        [self navigationController:navigationController didShowViewController:viewController animated:animated];
+    }
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
     [self.scrollView removeMultiDelegateByDelegateForwarder:self];
     UIScrollView *scrollView = [self traverseSubviewsToGetViewOfClass:[UIScrollView class] inView:viewController.view];
     [scrollView addMultiDelegateByDelegateForwarder:self];
@@ -283,6 +355,5 @@ typedef NS_ENUM(NSUInteger, JKAutoShrinkNavigationBarState) {
     
     self.shrinkingContentOffsetY = 0.0f;
 }
-
 
 @end
